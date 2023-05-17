@@ -1,6 +1,9 @@
 import { Box, Button, Card, Modal, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import { useKeyDown } from '../../../hooks/useKeyDown';
+import { useContext } from 'react';
+import GlobalContext from '../../context/GlobalContext';
+import Axios from '../../AxiosInstance';
 
 const CommentModal = ({ open = false, handleClose = () => {} }) => {
   const [textField, setTextField] = useState('');
@@ -12,6 +15,17 @@ const CommentModal = ({ open = false, handleClose = () => {} }) => {
 
   const handleAddComment = () => {
     // TODO implement logic
+
+    if (textField.trim() !== '') {
+      const newComment = {
+        id: comments.length + 1,
+        msg: textField.trim()
+      };
+      setComments([...comments, newComment]);
+      setTextField('');
+    }
+  
+
   };
   return (
     <Modal open={open} onClose={handleClose}>
